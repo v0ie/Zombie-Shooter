@@ -35,7 +35,7 @@ ammobox = pg.image.load("ammobox.png")
 no_bullets = pg.mixer.Sound("nobullet.wav")
 bullet_sound = pg.mixer.Sound("bullet1soundeffect.wav")
 enemy_image = pg.image.load("skeleton-idle_81.png")
-player_image = pg.image.load("player2.png")
+player_image = pg.image.load("player4.png")
 bullet_image = pg.image.load("bullet.png")
 angle = 90
 
@@ -63,14 +63,14 @@ class Player(pg.sprite.Sprite):
         self.image_lr = pg.transform.flip(self.image, True, False)
         self.image_rl = self.image
         self.direction = "RIGHT"
-        self.ammo = 60
+        self.ammo = 30
         self.last_shot = 0
 
     def update(self):
         keys = pg.key.get_pressed()
 
         if keys[pg.K_r]:
-            self.ammo = 60
+            self.ammo = 30
 
         if keys[pg.K_w]:
             self.image = self.image_up
