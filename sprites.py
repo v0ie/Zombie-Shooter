@@ -118,7 +118,7 @@ class Bullet1(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self)
         self.image = bullet_image
         self.rect = self.image.get_rect()
-        self.image = pg.transform.scale(self.image, (20, 20))
+        self.image = pg.transform.scale(self.image, (10, 10))
 
         if direction == "RIGHT":
             self.pos = vec(x + 100, y + 78)
