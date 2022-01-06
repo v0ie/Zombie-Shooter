@@ -1,0 +1,16 @@
+Zombie Shooter
+
+Objective:
+Kill zombies for SCORE, SCORE can be used to buy weapon upgrades / player upgrades.
+
+Map:
+Open street with traffic cones placed around
+
+Inspiration:
+Call Of Duty BLACK OPS III Zombies
+
+UPDATES:
+Make a smaller hitbox for the PLAYER [DONE] However need to fit the ammo coming out of the barrel
+Finish the map building (Traffic cones etc) [NOT FINISHED]
+Weapon upgrades / player upgrades [SHOP] [NOT FINISHED]
+Add a SCORE currency [NOT FINISHED]
