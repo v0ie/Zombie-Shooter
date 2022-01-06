@@ -35,7 +35,7 @@ ammobox = pg.image.load("ammobox.png")
 no_bullets = pg.mixer.Sound("nobullet.wav")
 bullet_sound = pg.mixer.Sound("bullet1soundeffect.wav")
 enemy_image = pg.image.load("skeleton-idle_81.png")
-player_image = pg.image.load("player4.png")
+player_image = pg.image.load("player3.png")
 bullet_image = pg.image.load("bullet.png")
 angle = 90
 
