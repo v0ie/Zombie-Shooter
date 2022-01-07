@@ -30,26 +30,28 @@ def clearConsole():
         command = 'cls'
     os.system(command)
 
-player_image_upgrade1 = ("")
+map = pg.image.load("map.png")
+crate = pg.image.load("crate.png")
 ammobox = pg.image.load("ammobox.png")
 no_bullets = pg.mixer.Sound("nobullet.wav")
 bullet_sound = pg.mixer.Sound("bullet1soundeffect.wav")
 enemy_image = pg.image.load("skeleton-idle_81.png")
-player_image = pg.image.load("player3.png")
+player_image = pg.image.load("player4.png")
 bullet_image = pg.image.load("bullet.png")
 angle = 90
 
-class Ammobox(pg.sprite.Sprite):
+class Map2(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-        self.image = ammobox
-        self.image = pg.transform.scale(self.image, (100, 100))
-        self.pos = vec(500, 500)
+        self.image = map
+        self.image = pg.transform.scale(self.image, (800, 600))
+        self.pos = vec(400, 300)
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
+        self.reloading = False
         pg.sprite.Sprite.__init__(self)
         self.image = player_image
         self.image = pg.transform.scale(self.image, (50, 50))
@@ -64,13 +66,23 @@ class Player(pg.sprite.Sprite):
         self.image_rl = self.image
         self.direction = "RIGHT"
         self.ammo = 30
+        self.mags_left = 3
         self.last_shot = 0
 
     def update(self):
         keys = pg.key.get_pressed()
 
         if keys[pg.K_r]:
-            self.ammo = 30
+            if self.mags_left > 0:
+                if self.ammo == 0:
+                    self.mags_left -= 1
+                    self.ammo = 30
+
+                else:
+                    print("There are still bullets left in the magazine.")
+
+            else:
+                print("There are no mags left.")
 
         if keys[pg.K_w]:
             self.image = self.image_up
@@ -100,18 +112,19 @@ class Player(pg.sprite.Sprite):
     def shoot(self):
         self.now = pg.time.get_ticks()
         self.now -= self.last_shot
-        if self.now > 200:
-            if self.ammo > 0:
-                self.last_shot = pg.time.get_ticks()
-                self.ammo -= 1
-                bullet_sound.play()
-                attack = Bullet1(self.pos.x, self.pos.y, self.direction)
-                bullets.add(attack)
-                all_sprites.add(attack)
+        if self.reloading == False:
+            if self.now > 200:
+                if self.ammo > 0:
+                    self.last_shot = pg.time.get_ticks()
+                    self.ammo -= 1
+                    bullet_sound.play()
+                    attack = Bullet1(self.pos.x, self.pos.y, self.direction)
+                    bullets.add(attack)
+                    all_sprites.add(attack)
 
-            else:
-                self.last_shot = pg.time.get_ticks()
-                no_bullets.play()
+                else:
+                    self.last_shot = pg.time.get_ticks()
+                    no_bullets.play()
             
 class Bullet1(pg.sprite.Sprite):    
     def __init__(self, x, y, direction):
