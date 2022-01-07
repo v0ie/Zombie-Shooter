@@ -30,6 +30,7 @@ def clearConsole():
         command = 'cls'
     os.system(command)
 
+car = pg.image.load("car.png")
 map = pg.image.load("map.png")
 crate = pg.image.load("crate.png")
 ammobox = pg.image.load("ammobox.png")
@@ -40,6 +41,8 @@ player_image = pg.image.load("player4.png")
 bullet_image = pg.image.load("bullet.png")
 angle = 90
 
+
+
 class Map2(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
@@ -48,6 +51,37 @@ class Map2(pg.sprite.Sprite):
         self.pos = vec(400, 300)
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
+
+class Car2(pg.sprite.Sprite):
+    def __init__(self):
+        pg.sprite.Sprite.__init__(self)
+        self.image = car
+        self.image = pg.transform.scale(self.image, (100, 50))
+        self.pos = vec(20, 0)
+        self.pos.x = 20
+        self.pos.y = 435
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+        self.way = "RIGHT"
+
+
+    def update(self):
+        self.rect.center = self.pos
+
+        if self.pos.x < 590:
+            self.pos.x += 1
+
+        if self.pos.x == 590:
+            self.pos.x = 625
+            self.way = "DOWN"
+            self.pos.y += 1
+
+        if self.way == "DOWN":
+            self.image = pg.transform.rotate(self.image, -90)
+
+        if self.way == "RIGHT":
+            self.image = pg.transform.rotate(self.image, 180)
+            
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -185,13 +219,13 @@ class Enemy(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self)
         self.image = enemy_image
         self.image = pg.transform.scale(self.image, (50, 50))
-        self.pos = vec(-100,randint(100, 500))
+        self.pos = vec(-100,randint(-200, -100))
         self.health = 100
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
         self.hp = 100
-        self.speed_x = 1
-        self.speed_back = 1
+        self.speed_x = 0
+        self.speed_back = 0
         self.speed_y = 0 
         self.image_r = self.image
         self.image_l = pg.transform.flip(self.image, True, False)
